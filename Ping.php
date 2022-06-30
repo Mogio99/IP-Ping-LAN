@@ -1,6 +1,4 @@
-<?php 
-    
-    
+<?php   
     $iplist = array_map('str_getcsv', file('HostList.csv'));
     $i = count($iplist);
     $result = [];
@@ -14,39 +12,118 @@
     echo '<html>
             <head>
                 <title>Ping Checker</title>
+                <link rel="stylesheet" href="style.css">
             </head>
-            <body bgcolor=FFFDD0>
-                <font face = Bebas Neue>
-                <table border=1>
-                        <th colspan = 6> Ping Status </th>
-                            <tr>
-                                <!-- <td>ID </td> -->
-                                <td align=center width=150><b>IP/URL</td>
-                                <td align=center width=150><b>MAC Address</td>
-                                <td align=center width=200><b>Nome Device</td>
-                                <td align=center width=200><b>Funzione</td>
-                                <td align=center width=200><b>Stato</td>               
-                                <td align=center width=200><b>Redirect</td>
-                            </tr>    
-         ';                 
-         header("refresh:1");
+            <body>
+                <p class="timer">Tempo al prossimo Refresh/Ping:<p>
+                <div class="timer" id="timer"></div><br><br>
+
+                <div id="DivInput">
+                    <select class="drop" id="dropdown" oninput="filterTable()">
+                        <option>Tutti</option>
+                        <option>Switch</option>
+                        <option>Router or Switch</option>
+                        <option>Computer</option>
+                    </select>
+                    <p><button onclick="sortTableStatus()">Ordina per Stato</button></p>
+                </div>
+
+                <br>
+                <br>
+
+                <div id="DivTable">
+                    <table id="table">
+                            <th colspan=6> Ping Status </th>
+                                <tr>
+                                    <!-- <td>ID </td> -->
+                                    <td><b>IP/URL</td>
+                                    <td><b>MAC Address</td>
+                                    <td><b>Nome Device</td>
+                                    <td><b>Funzione</td>
+                                    <td><b>Stato</td>               
+                                    <td><b>Redirect</td>
+                                </tr>    
+         ';               
+    header("refresh:30");
     foreach($result as $temp => $k){
-    echo '                  <tr>';
-    echo '                      <td align=center width=100>'.$iplist[$temp][0].'</td>';
-    echo '                      <td align=center width=100>'.$iplist[$temp][1].'</td>';
-    echo '                      <td align=center width=100>'.$iplist[$temp][2].'</td>';
-    echo '                      <td align=center width=100>'.$iplist[$temp][3].'</td>';
-                            if($result[$temp]==0)
-    echo '                      <td align=center width=100><p style=color:green><b>Online</b></p></td>';
-                            else
-    echo '                      <td align=center width=100><p style=color:red><b>Offline</b></p></td>';                
-    echo '                      <td align=center width=100>'.$iplist[$temp][4].'</td>';   
-    echo '                  </tr>';
+    echo '                      <tr>';
+    echo '                          <td>'.$iplist[$temp][0].'</td>';
+    echo '                          <td>'.$iplist[$temp][1].'</td>';
+    echo '                          <td>'.$iplist[$temp][2].'</td>';
+    echo '                          <td>'.$iplist[$temp][3].'</td>';
+                                if($result[$temp]==0)
+    echo '                          <td><p class="online">Online</p></td>';
+                                else
+    echo '                          <td><p class="offline">Offline</p></td>';                
+    echo '                          <td>'.$iplist[$temp][4].'</td>';   
+    echo '                      </tr>';
     }
     
-    echo '      </table>
-                </font>';  
-    //header("refresh:1");//per refreshare la pagina ed aggiornare gli stati metere il numero di secondi 
-    echo ' </body>      
+    echo '          </table>
+                </div>
+
+                <script>
+
+                    function sortTableStatus() {
+                        var table, rows, switching, i, x, y, shouldSwitch;
+                        table = document.getElementById("table");
+                        switching = true;
+                        
+                        while (switching) {
+                          switching = false;
+                          rows = table.rows;
+                          
+                          for (i = 1; i < (rows.length - 1); i++) {
+                            shouldSwitch = false;
+                            x = rows[i].getElementsByTagName("TD")[4];
+                            y = rows[i + 1].getElementsByTagName("TD")[4];
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                              shouldSwitch = true;
+                              break;
+                            }
+                          }
+                          if (shouldSwitch) {
+
+                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                            switching = true;
+                          }
+                        }
+                      }
+                    
+                    function filterTable() {
+                        let dropdown, table, rows, cells, name, filter;
+
+                        dropdown = document.getElementById("dropdown");
+                        table = document.getElementById("table");
+                        rows = table.getElementsByTagName("tr");
+                        filter = dropdown.value;
+
+                        for (let row of rows) { 
+                          cells = row.getElementsByTagName("td");
+                          name = cells[3] || null; 
+                          if (filter === "Tutti" || !name || (filter === name.textContent)) {
+                            row.style.display = ""; 
+                          }
+                          else {
+                            row.style.display = "none"; 
+                          }
+                        }
+                      }
+
+                    var timeLeft = 29;
+                    var elem = document.getElementById("timer");
+                    var timerId = setInterval(countdown, 1000);
+
+                    function countdown() {
+                    if (timeLeft == -1) {
+                        clearTimeout(timerId);
+                    }else{
+                        elem.innerHTML = timeLeft;
+                        timeLeft--;
+                    }
+                    }
+
+                </script> 
+            </body>      
           </html>';                     
 ?>

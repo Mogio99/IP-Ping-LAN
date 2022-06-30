@@ -1,0 +1,61 @@
+body{
+    background-color: FFFDD0;
+}
+
+table{
+    border: 1px solid;
+    margin: auto;
+    text-align: center;
+    border-collapse: collapse;
+  }
+
+tr, td{
+    border: 1px solid;
+    text-align: center;
+    width: 200;
+}
+
+p.online{
+    color: green;
+    font-weight: bold;
+}
+
+p.offline{
+    color: red;
+    font-weight: bold;
+}
+
+p.timer{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: xx-large;
+    margin: auto;
+}
+
+input[type=text]{
+    margin-right: auto;
+    margin-left: auto;
+    width: 15%;
+    font-size: 16px;
+    padding: 6px 10px 6px 20px;
+    border: auto solid rgb(155, 154, 154);
+    margin-bottom: 6px;
+}
+
+div.timer{
+    color: orange;
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: auto;
+}
+
+div.DivInput{
+    width:800px; 
+    margin:0 auto;
+}
+
+select.drop{
+    width: 8%;
+    height: 1cm;
+    font-size: 0,5cm;
+
+}
