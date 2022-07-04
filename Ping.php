@@ -1,10 +1,10 @@
 <?php   
     //array load
-    $iplist = array_map('str_getcsv', file('HostList.csv')); //change with your file .csv with eventualy is path
+    $iplist = array_map('str_getcsv', file('HostList.csv')); //change with your .csv file with eventualy is path
     $i = count($iplist);
     $result = [];
 
-    //loop for ping every host
+    //loop for ping host
     for($j=0;$j<$i;$j++){
         $ip = $iplist[$j][0];
         $ping = exec("ping -n 1 $ip", $output,$status); //if status 0 = ping done
@@ -60,7 +60,7 @@
     echo '                          <td>'.$iplist[$temp][1].'</td>';
     echo '                          <td>'.$iplist[$temp][2].'</td>';
     echo '                          <td>'.$iplist[$temp][3].'</td>';
-                                if($result[$temp]==0)                         //ping result, if 0 then is pinging properly
+                                if($result[$temp]==0)                         //ping result, if 0 then is pinging properly, else is not pinging
     echo '                          <td><p class="online">Online</p></td>';
                                 else
     echo '                          <td><p class="offline">Offline</p></td>';                
