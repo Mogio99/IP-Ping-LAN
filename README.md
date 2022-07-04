@@ -1,7 +1,15 @@
 # IP-Ping-LAN
-A small script that take IP Address and some description of Host from HostList.csv file and constantly Pinging them for check their status
+A small script that take IP Address and some description of Host from HostList.csv file and constantly Pinging them for check their status evry 30 second (editable)
+
+Ex of a .csv File:
+
+![Cattura](https://user-images.githubusercontent.com/91249430/177164050-b7705e39-5e06-4e3b-835a-c7e6935b8b51.PNG)
 
 You can filter the table based on a dropbox and by device status ( offline/online )
 
+For Setup/Installation:
+Just run it on a php server and modify the code based on comments if u want some enable
+
 The result is shown in the following table:
-![Cattura](https://user-images.githubusercontent.com/91249430/176455468-21b6de77-1260-4b9b-8aa4-b41b5805fcf1.PNG)
+
+![Cattura1](https://user-images.githubusercontent.com/91249430/177163995-90e37a6f-f2f7-4fca-8a52-76483b1f80a7.PNG)
